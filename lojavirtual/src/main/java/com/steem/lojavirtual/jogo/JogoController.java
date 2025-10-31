@@ -56,4 +56,13 @@ public class JogoController {
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    @GetMapping
+    public ResponseEntity<List<ResponseJogoDTO>> listAll() {
+        List<Jogo> jogos = jogoServices.listAll();
+        List<ResponseJogoDTO> responseDTOs = jogos.stream().map(jogo -> {
+            List<String> generoNomes = jogo.getGeneros().stream().map(g -> g.getNome()).collect(Collectors.toList());
+            return new ResponseJogoDTO(jogo.getId(), jogo.getNome(), jogo.getPreco(), generoNomes, jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora().getNome() : null, jogo.getUsuarios().size());
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(responseDTOs);
+    }
 }

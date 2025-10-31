@@ -43,6 +43,9 @@ public class JogoServices {
         Jogo jogo = new Jogo(dto.nome(), generos, dto.preco(), empresa);
         return jogoRepository.save(jogo);
     }
+    public List<Jogo> listAll() {
+        return jogoRepository.findAll();
+    }
 
     public Jogo edit(EditJogoDTO dto) {
         Jogo jogo = jogoRepository.findById(dto.id())
