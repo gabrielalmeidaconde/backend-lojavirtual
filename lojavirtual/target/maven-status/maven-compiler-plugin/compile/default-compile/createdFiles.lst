@@ -2,13 +2,13 @@ com/steem/lojavirtual/jogo/JogoRepository.class
 com/steem/lojavirtual/genero/dto/EditGeneroDTO.class
 com/steem/lojavirtual/atualizacoes/dto/EditAtualizacaoDTO.class
 com/steem/lojavirtual/empresa/EmpresaService.class
-com/steem/lojavirtual/jogo/dto/RelatorioJogoDTO.class
 com/steem/lojavirtual/jogo/dto/EditJogoDTO.class
+com/steem/lojavirtual/jogo/dto/RelatorioJogoDTO.class
 com/steem/lojavirtual/genero/dto/ResponseGeneroDTO.class
 com/steem/lojavirtual/empresa/dto/CreateEmpresaDTO.class
 com/steem/lojavirtual/jogo/dto/CreateJogoDTO.class
-com/steem/lojavirtual/usuario/UsuarioRepository.class
 com/steem/lojavirtual/atualizacoes/dto/CreateAtualizacaoDTO.class
+com/steem/lojavirtual/usuario/UsuarioRepository.class
 com/steem/lojavirtual/usuario/dto/RelatorioUsuarioDTO.class
 com/steem/lojavirtual/empresa/EmpresaRepository.class
 com/steem/lojavirtual/usuario/dto/CreateUsuarioDTO.class
@@ -17,8 +17,8 @@ com/steem/lojavirtual/atualizacoes/AtualizacoesRepository.class
 com/steem/lojavirtual/LojavirtualApplication.class
 com/steem/lojavirtual/atualizacoes/AtualizacoesController.class
 com/steem/lojavirtual/jogo/JogoServices.class
-com/steem/lojavirtual/usuario/dto/EditUsuarioDTO.class
 com/steem/lojavirtual/atualizacoes/Atualizcoes.class
+com/steem/lojavirtual/usuario/dto/EditUsuarioDTO.class
 com/steem/lojavirtual/genero/Genero.class
 com/steem/lojavirtual/jogo/JogoController.class
 com/steem/lojavirtual/jogo/Jogo.class
