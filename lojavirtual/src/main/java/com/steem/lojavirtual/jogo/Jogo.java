@@ -20,10 +20,13 @@ public class Jogo {
     @ManyToMany
     @JoinTable(name = "jogo_genero",
             joinColumns = @JoinColumn(name = "jogo_id"),
-            inverseJoinColumns = @JoinColumn(name = "genero_id"))
+            inverseJoinColumns = @JoinColumn(name = "genero_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"jogo_id", "genero_id"}))
     private List<Genero> generos = new ArrayList<>();
 
     private Double preco;
+    private String imagemUrl; // URL ou caminho da imagem JPG
+    
     @ManyToOne
     private Empresa desenvolvedora;
 
@@ -31,6 +34,10 @@ public class Jogo {
     private List<Atualizcoes> atualizacoes = new ArrayList<>();
 
     @ManyToMany
+    @JoinTable(name = "jogo_usuario",
+            joinColumns = @JoinColumn(name = "jogo_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_email"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"jogo_id", "usuario_email"}))
     private List<Usuario> usuarios = new ArrayList<>();
 
     public Jogo() {
@@ -67,6 +74,10 @@ public class Jogo {
         return desenvolvedora;
     }
 
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
     public List<Atualizcoes> getAtualizacoes() {
         return atualizacoes;
     }
@@ -99,6 +110,10 @@ public class Jogo {
 
     public void setDesenvolvedora(Empresa desenvolvedora) {
         this.desenvolvedora = desenvolvedora;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
     }
 
     public void setUsuarios(List<Usuario> usuarios) {

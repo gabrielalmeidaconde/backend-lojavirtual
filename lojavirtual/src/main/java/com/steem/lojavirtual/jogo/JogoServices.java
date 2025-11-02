@@ -41,6 +41,7 @@ public class JogoServices {
                 .orElseThrow(() -> new RuntimeException("Empresa nao encontrada"));
 
         Jogo jogo = new Jogo(dto.nome(), generos, dto.preco(), empresa);
+        jogo.setImagemUrl(dto.imagemUrl());
         return jogoRepository.save(jogo);
     }
     public List<Jogo> listAll() {
@@ -64,6 +65,9 @@ public class JogoServices {
             Empresa empresa = empresaRepository.findById(dto.desenvolvedoraId())
                     .orElseThrow(() -> new RuntimeException("Empresa nao encontrada"));
             jogo.setDesenvolvedora(empresa);
+        }
+        if (dto.imagemUrl() != null) {
+            jogo.setImagemUrl(dto.imagemUrl());
         }
 
         return jogoRepository.save(jogo);
