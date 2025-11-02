@@ -28,9 +28,11 @@ com/steem/lojavirtual/genero/GeneroServices.class
 com/steem/lojavirtual/empresa/Empresa.class
 com/steem/lojavirtual/usuario/dto/ResponseUsuarioDTO.class
 com/steem/lojavirtual/empresa/dto/EditEmpresaDTO.class
+com/steem/lojavirtual/CorsConfig.class
 com/steem/lojavirtual/atualizacoes/AtualizacoesServices.class
 com/steem/lojavirtual/empresa/dto/ResponseEmpresaDTO.class
 com/steem/lojavirtual/jogo/dto/ResponseJogoDTO.class
+com/steem/lojavirtual/CorsConfig$1.class
 com/steem/lojavirtual/genero/dto/CreateGeneroDTO.class
 com/steem/lojavirtual/genero/GeneroController.class
 com/steem/lojavirtual/genero/GeneroRepository.class
