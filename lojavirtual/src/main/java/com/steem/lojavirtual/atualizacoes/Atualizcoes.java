@@ -16,6 +16,7 @@ public class Atualizcoes {
     private Long id;
     private String descricao;
     private LocalDateTime data;
+    private String versao;
 
     @ManyToOne
     private Jogo jogo;
@@ -23,9 +24,10 @@ public class Atualizcoes {
     public Atualizcoes() {
     }
 
-    public Atualizcoes(String descricao, LocalDateTime data) {
+    public Atualizcoes(String descricao, LocalDateTime data, String versao) {
         this.descricao = descricao;
         this.data = data;
+        this.versao = versao;
     }
 
     public Long getId() {
@@ -46,6 +48,14 @@ public class Atualizcoes {
 
     public void setData(LocalDateTime data) {
         this.data = data;
+    }
+
+    public String getVersao() {
+        return versao;
+    }
+
+    public void setVersao(String versao) {
+        this.versao = versao;
     }
 
     public Jogo getJogo() {

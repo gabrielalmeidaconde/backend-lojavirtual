@@ -18,8 +18,8 @@ public class AtualizacoesServices {
         this.jogoRepository = jogoRepository;
     }
 
-    public Atualizcoes create(String descricao, Long jogoId) {
-        Atualizcoes a = new Atualizcoes(descricao, LocalDateTime.now());
+    public Atualizcoes create(String descricao, Long jogoId, String versao) {
+        Atualizcoes a = new Atualizcoes(descricao, LocalDateTime.now(), versao);
         if (jogoId != null) {
             Jogo jogo = jogoRepository.findById(jogoId).orElseThrow(() -> new RuntimeException("Jogo nao encontrado"));
             a.setJogo(jogo);

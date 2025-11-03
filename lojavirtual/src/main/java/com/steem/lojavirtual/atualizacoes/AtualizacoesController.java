@@ -22,7 +22,7 @@ public class AtualizacoesController {
 
     @PostMapping
     public ResponseEntity<ResponseAtualizacaoDTO> create(@RequestBody CreateAtualizacaoDTO dto) {
-        Atualizcoes a = service.create(dto.descricao(), dto.jogoId());
+        Atualizcoes a = service.create(dto.descricao(), dto.jogoId(), dto.versao());
         Long jogoId = a.getJogo() != null ? a.getJogo().getId() : null;
         String jogoNome = a.getJogo() != null ? a.getJogo().getNome() : null;
         return new ResponseEntity<>(new ResponseAtualizacaoDTO(a.getId(), a.getDescricao(), a.getData(), jogoId, jogoNome), HttpStatus.CREATED);

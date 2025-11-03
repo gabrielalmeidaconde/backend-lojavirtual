@@ -25,7 +25,14 @@ public class Jogo {
     private List<Genero> generos = new ArrayList<>();
 
     private Double preco;
+    
+    @Column(nullable = false)
+    private Integer desconto = 0;
+    
     private String imagemUrl; // URL ou caminho da imagem JPG
+    
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
     
     @ManyToOne
     private Empresa desenvolvedora;
@@ -70,12 +77,20 @@ public class Jogo {
         return preco;
     }
 
+    public Integer getDesconto() {
+        return desconto != null ? desconto : 0;
+    }
+
     public Empresa getDesenvolvedora() {
         return desenvolvedora;
     }
 
     public String getImagemUrl() {
         return imagemUrl;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 
     public List<Atualizcoes> getAtualizacoes() {
@@ -108,12 +123,23 @@ public class Jogo {
         this.preco = preco;
     }
 
+    public void setDesconto(Integer desconto) {
+        if (desconto != null && (desconto < 0 || desconto > 100)) {
+            throw new IllegalArgumentException("Desconto deve estar entre 0 e 100");
+        }
+        this.desconto = desconto != null ? desconto : 0;
+    }
+
     public void setDesenvolvedora(Empresa desenvolvedora) {
         this.desenvolvedora = desenvolvedora;
     }
 
     public void setImagemUrl(String imagemUrl) {
         this.imagemUrl = imagemUrl;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public void setUsuarios(List<Usuario> usuarios) {

@@ -23,15 +23,13 @@ public class JogoController {
     @PostMapping
     public ResponseEntity<ResponseJogoDTO> create(@RequestBody CreateJogoDTO dto) {
         Jogo jogo = jogoServices.create(dto);
-        List<String> generoNomes = jogo.getGeneros().stream().map(g -> g.getNome()).collect(Collectors.toList());
-        return new ResponseEntity<>(new ResponseJogoDTO(jogo.getId(), jogo.getNome(), jogo.getPreco(), generoNomes, jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora().getNome() : null, jogo.getUsuarios().size(), jogo.getImagemUrl()), HttpStatus.CREATED);
+        return new ResponseEntity<>(jogoServices.converterParaDTO(jogo), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<ResponseJogoDTO> edit(@RequestBody EditJogoDTO dto) {
         Jogo jogo = jogoServices.edit(dto);
-        List<String> generoNomes = jogo.getGeneros().stream().map(g -> g.getNome()).collect(Collectors.toList());
-        return ResponseEntity.ok(new ResponseJogoDTO(jogo.getId(), jogo.getNome(), jogo.getPreco(), generoNomes, jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora().getNome() : null, jogo.getUsuarios().size(), jogo.getImagemUrl()));
+        return ResponseEntity.ok(jogoServices.converterParaDTO(jogo));
     }
 
     @DeleteMapping("/{id}")
@@ -43,26 +41,22 @@ public class JogoController {
     @PostMapping("/{id}/comprar")
     public ResponseEntity<ResponseJogoDTO> comprar(@PathVariable Long id, @RequestParam String usuarioemail) {
         Jogo jogo = jogoServices.comprar(id, usuarioemail);
-        List<String> generoNomes = jogo.getGeneros().stream().map(g -> g.getNome()).collect(Collectors.toList());
-        return ResponseEntity.ok(new ResponseJogoDTO(jogo.getId(), jogo.getNome(), jogo.getPreco(), generoNomes, jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora().getNome() : null, jogo.getUsuarios().size(), jogo.getImagemUrl()));
+        return ResponseEntity.ok(jogoServices.converterParaDTO(jogo));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseJogoDTO> getById(@PathVariable Long id) {
         return jogoServices.findById(id)
-                .map(jogo -> {
-                    List<String> generoNomes = jogo.getGeneros().stream().map(g -> g.getNome()).collect(Collectors.toList());
-                    return ResponseEntity.ok(new ResponseJogoDTO(jogo.getId(), jogo.getNome(), jogo.getPreco(), generoNomes, jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora().getNome() : null, jogo.getUsuarios().size(), jogo.getImagemUrl()));
-                })
+                .map(jogo -> ResponseEntity.ok(jogoServices.converterParaDTO(jogo)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    
     @GetMapping
     public ResponseEntity<List<ResponseJogoDTO>> listAll() {
         List<Jogo> jogos = jogoServices.listAll();
-        List<ResponseJogoDTO> responseDTOs = jogos.stream().map(jogo -> {
-            List<String> generoNomes = jogo.getGeneros().stream().map(g -> g.getNome()).collect(Collectors.toList());
-            return new ResponseJogoDTO(jogo.getId(), jogo.getNome(), jogo.getPreco(), generoNomes, jogo.getDesenvolvedora() != null ? jogo.getDesenvolvedora().getNome() : null, jogo.getUsuarios().size(), jogo.getImagemUrl());
-        }).collect(Collectors.toList());
+        List<ResponseJogoDTO> responseDTOs = jogos.stream()
+                .map(jogoServices::converterParaDTO)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
 }
