@@ -12,6 +12,7 @@ import com.steem.lojavirtual.jogo.dto.ResponseJogoDTO;
 import com.steem.lojavirtual.usuario.Usuario;
 import com.steem.lojavirtual.usuario.UsuarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -104,6 +105,22 @@ public class JogoServices {
 
     public Optional<Jogo> findById(Long id) {
         return jogoRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Jogo> listByUsuarioEmail(String email) {
+        System.out.println("🔍 [JogoServices] Buscando jogos comprados por: " + email);
+        // usar consulta com fetch para evitar problemas de lazy loading ao converter para DTO
+        List<Jogo> jogos = jogoRepository.findCompradosComFetchByUsuarioEmail(email);
+        System.out.println("✅ [JogoServices] Query retornou " + jogos.size() + " jogos");
+        return jogos;
+    }
+
+    public boolean usuarioPossuiJogo(Long jogoId, String usuarioemail) {
+        Jogo jogo = jogoRepository.findById(jogoId)
+                .orElseThrow(() -> new RuntimeException("Jogo nao encontrado"));
+        return jogo.getUsuarios().stream()
+                .anyMatch(u -> u.getEmail().equals(usuarioemail));
     }
 
     public ResponseJogoDTO converterParaDTO(Jogo jogo) {

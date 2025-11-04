@@ -59,4 +59,30 @@ public class JogoController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
+
+    // Lista os jogos comprados por um usuário ("Meus Pedidos")
+    @GetMapping("/comprados")
+    public ResponseEntity<List<ResponseJogoDTO>> listComprados(@RequestParam String usuarioemail) {
+        System.out.println("🔍 [JogoController] GET /jogos/comprados - usuarioemail: " + usuarioemail);
+        try {
+            List<Jogo> jogos = jogoServices.listByUsuarioEmail(usuarioemail);
+            System.out.println("✅ [JogoController] Encontrados " + jogos.size() + " jogos comprados");
+            List<ResponseJogoDTO> responseDTOs = jogos.stream()
+                    .map(jogoServices::converterParaDTO)
+                    .collect(Collectors.toList());
+            System.out.println("✅ [JogoController] Retornando " + responseDTOs.size() + " DTOs");
+            return ResponseEntity.ok(responseDTOs);
+        } catch (Exception e) {
+            System.err.println("❌ [JogoController] Erro ao buscar jogos comprados: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    // Verifica se um usuário possui um jogo
+    @GetMapping("/{id}/possui")
+    public ResponseEntity<Boolean> usuarioPossuiJogo(@PathVariable Long id, @RequestParam String usuarioemail) {
+        boolean possui = jogoServices.usuarioPossuiJogo(id, usuarioemail);
+        return ResponseEntity.ok(possui);
+    }
 }
